@@ -1,0 +1,41 @@
+.Sometimes, you may come across a situation,when you  want to have a function, which can take variable number of arguments.
+
+NOTE:To use such functionality you need to make use stdarg.h header file which provides functions and macros to.
+
+STEPS:
+      1. Define a with  last parameter as ellipse and the one  just before should be int,it represent no of arguments are passing.
+      2. create a va_list type variable in function definition.this type defined in stdarg.h header file.
+      3.use int parameter and va_start macro to initialize the va_list  variable to argument list
+      4.use va_arg macro and va_list variable to access each item in argument list.
+      5.use macro va_end to clean up the memory assigned to va_list variable.
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include<stdarg.h>
+using namespace std;
+int add(int n,...)// ... ellipse
+{
+    int sum=0,i;
+    va_list lst;
+    va_start(lst,n);// here we are allocating memory for list and telling we have so many elements
+    for(int i=0;i<n;i++)
+    {
+        int s=va_arg(lst,int);//Here extracting data from list
+        sum+=s;
+    }
+    va_end(lst);//To release the memory
+    return sum;
+}
+int main() {
+    cout<<add(2,1,2)<<endl;
+    cout<<add(3,1,2,3)<<endl;
+   
+    return 0;
+}
